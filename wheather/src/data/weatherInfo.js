@@ -1,37 +1,41 @@
- const weatherPredictions = [
+import * as icons from '../components/icons/icons'
+
+
+
+const weatherPredictions = [
   {
     weekDey: "Monday",
-    imgURL: "",
+    icon: icons.CloudyWeather,
     temp: "25C",
   },
   {
     weekDey: "Tuesday",
-    imgURL: "",
+    icon: icons.SunnyWeather,
     temp: "32C",
   },
   {
     weekDey: "Wednesday",
-    imgURL: "",
+    icon: icons.SunnyWeather,
     temp: "35C",
   },
   {
     weekDey: "Thursday",
-    imgURL: "",
+    icon: icons.CloudyWeather,
     temp: "19C",
   },
   {
     weekDey: "Friday",
-    imgURL: "",
+    icon: icons.RainyWeather,
     temp: "10C",
   },
   {
     weekDey: "Saturday",
-    imgURL: "",
+    icon: icons.RainyWeather,
     temp: "9C",
   },
   {
     weekDey: "Sunday",
-    imgURL: "",
+    icon: icons.WindyWeather,
     temp: "22C",
   },
 ];

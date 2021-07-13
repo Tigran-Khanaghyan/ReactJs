@@ -1,16 +1,12 @@
-import setImageURL from "./data/imgURL";
-import weatherInfo from './data/weatherInfo'
-
-
-setImageURL(weatherInfo)
-
+import weatherPredictions from "./data/weatherInfo";
 
 function App() {
   return (
-    <div>
-
-    </div>
-    
+    weatherPredictions.map((weather, index) => {
+     return  (<div key={index}>
+        <weather.icon />
+      </div>)
+    })
   );
 }
 
