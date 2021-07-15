@@ -1,0 +1,11 @@
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    color: #ccc;
+}
+.input-wrapper button{
+    width: 100px;
+}
+.container {
+    color: white;
+}
