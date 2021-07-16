@@ -1,4 +1,5 @@
 import React from "react";
+import './login.css'
 
 export class Login extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ export class Login extends React.Component {
       }
     }
     if (event.target.name === "confirm") {
-      if (event.target.value !== password) {
+      if (event.target.value !== this.state.password) {
         this.setState({
           confirmErrorMessage: "Password`s are not match",
         });
@@ -55,7 +56,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='wrapper'>
         <form>
           <div>
             <input
