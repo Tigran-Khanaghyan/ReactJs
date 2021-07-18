@@ -1,6 +1,4 @@
-import * as icons from '../components/icons/icons'
-
-
+import * as icons from "../components/icons/icons";
 
 const weatherPredictions = [
   {
@@ -40,5 +38,4 @@ const weatherPredictions = [
   },
 ];
 
-export default weatherPredictions
- 
+export default weatherPredictions;

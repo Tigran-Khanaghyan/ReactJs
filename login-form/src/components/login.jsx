@@ -1,5 +1,5 @@
 import React from "react";
-import './login.css'
+import "./login.css";
 
 export class Login extends React.Component {
   constructor(props) {
@@ -9,11 +9,25 @@ export class Login extends React.Component {
       email: "",
       password: "",
       confirmPassword: "",
+      isEmailCorrect: false,
+      isPasswordCorrect: false,
+      isConfirmMatch: false,
       emailErrorMessage: "",
       passwordErrorMessage: "",
       confirmErrorMessage: "",
+      disableSubmit: true,
     };
   }
+  componen() {
+    this.disableSubmit();
+  }
+  disableSubmit = () => {
+    if (isEmailCorrect && isPasswordCorrect && isConfirmMatch) {
+      this.setState({ disableSubmit: false });
+    } else {
+      this.setState({ disableSubmit: false });
+    }
+  };
 
   handleChangeEvent = (event) => {
     if (event.target.name === "email") {
@@ -23,7 +37,9 @@ export class Login extends React.Component {
       if (!isEmail) {
         this.setState({ emailErrorMessage: "Email is not valid" });
       } else {
+        // this.disableSubmit();
         this.setState({
+          isEmailCorrect: true,
           email: event.target.value,
           emailErrorMessage: "",
         });
@@ -37,7 +53,9 @@ export class Login extends React.Component {
       if (input.length < 7 || isValid === false) {
         this.setState({ passwordErrorMessage: "Password is not valid" });
       } else {
+        // this.disableSubmit();
         this.setState({
+          isPasswordCorrect: true,
           password: event.target.value,
           passwordErrorMessage: "",
         });
@@ -49,14 +67,18 @@ export class Login extends React.Component {
           confirmErrorMessage: "Password`s are not match",
         });
       } else {
-        this.setState({ confirmErrorMessage: "" });
+        // this.disableSubmit();
+        this.setState({
+          isConfirmMatch: true,
+          confirmErrorMessage: "",
+        });
       }
     }
   };
 
   render() {
     return (
-      <div className='wrapper'>
+      <div className="wrapper">
         <form>
           <div>
             <input
@@ -90,7 +112,12 @@ export class Login extends React.Component {
           </div>
           <div>
             <div></div>
-            <input type="submit" value="Signup" />
+            <input
+              disabled={this.state.disableSubmit}
+              name="submit"
+              type="submit"
+              value="Signup"
+            />
           </div>
         </form>
       </div>

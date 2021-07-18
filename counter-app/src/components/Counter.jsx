@@ -23,13 +23,13 @@ export class Counter extends React.Component {
       localStorage.setItem("step", this.state.step);
     }
   }
- componentDidMount(){
-       if(localStorage.getItem('minimum')){
-           this.state.minimum = localStorage.getItem('minimum')
-           this.state.maximum = localStorage.getItem('maximum')
-           this.state.step = localStorage.getItem('step')
-       }
- }
+  componentDidMount() {
+    if (localStorage.getItem("minimum")) {
+      this.state.minimum = localStorage.getItem("minimum");
+      this.state.maximum = localStorage.getItem("maximum");
+      this.state.step = localStorage.getItem("step");
+    }
+  }
 
   handleChange = (event) => {
     if (event.target.name === "minimum") {
