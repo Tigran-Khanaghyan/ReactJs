@@ -1,29 +1,39 @@
 import React from "react";
-import { Button } from "./Button";
-import { Input } from "./Input";
+import Input from "./Input/Input";
+import Country from "./Country/Country";
 
 export class CountriesSearch extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      url: "https://restcountries.eu/rest/v2/name/",
+      url: "https://restcountries.eu/rest/v2/all",
+      fetchedData: null,
     };
   }
+  async componentDidMount() {
+    const response = await fetch(this.state.url);
+    const data = await response.json();
+    this.setState({ fetchedData: data });
+    console.log(this.state.fetchedData);
+  }
 
-  sendFetchRequest = (event) => {
+  searchByInput = (event) => {
     let inputValue = event.target.value;
-    fetch(this.state.url + inputValue)
-        .then(response => response.json())
-        .then(data => console.log(data))
   };
 
   render() {
     return (
-      <>
-        <Input sendFetchRequest={this.sendFetchRequest} />
-        <Button />
-      </>
+      <div>
+        <Input />
+        {this.state.fetchedData ? (
+          <div>
+            <Country countries={this.state.fetchedData} />
+          </div>
+        ) : (
+          []
+        )}
+      </div>
     );
   }
 }

@@ -4,7 +4,7 @@ import { CountriesSearch } from "./Components/CountriesSearch";
 
 function App() {
   return (
-   <CountriesSearch/>
+   <CountriesSearch />
   )
 }
 
