@@ -1,0 +1,16 @@
+.countries {
+  display: block;
+  height: 250px;
+  overflow: auto;
+}
+
+.country-field {
+  display: flex;
+  align-items: center;
+  background-color: beige;
+  width: 250px;
+}
+
+.country-field img {
+  width: 20px;
+}

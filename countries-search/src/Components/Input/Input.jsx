@@ -2,5 +2,5 @@ import React from "react";
 import './Input.css'
 
 export default function Input(props) {
-  return <input type="search" onChange={props.searchByInput} />;
+  return <input className="input-field" type="search" onChange={props.searchByInput}  onClick={props.searchByInput}/>;
 }
