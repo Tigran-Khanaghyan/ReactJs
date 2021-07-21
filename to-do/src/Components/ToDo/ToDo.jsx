@@ -56,6 +56,7 @@ export default class ToDo extends React.Component {
       <div className={ToDoTailWindStylesList}>
         <Input
           name="todo"
+          environment="input"
           value={this.state.toDoInputValue}
           handleChange={this.handleChange}
         />
