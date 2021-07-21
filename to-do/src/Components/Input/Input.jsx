@@ -22,6 +22,7 @@ export default function Input(props) {
   return (
     <input
       type="text"
+      value={props.value}
       className={InputClassNames}
       onChange={props.handleChange}
       name={props.name}

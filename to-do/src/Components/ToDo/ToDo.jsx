@@ -3,21 +3,20 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import List from "../List/List";
 
-
 let ClassNames = require("classnames");
 let ToDoTailWindStylesList = ClassNames(["mx-10", "my-8"]);
 
-function generateRandomId(){
-  let randomNumber = Math.random()
-  return 'todo'+ randomNumber
+function generateRandomId() {
+  let randomNumber = Math.random();
+  return "todo" + randomNumber;
 }
 
-function createNewToDo(text, id) {
+let createNewToDo = (state) => {
   return {
-    text,
-    id: generateRandomId()
-  }
-}
+    text: state.toDoInputValue,
+    id: generateRandomId(),
+  };
+};
 
 export default class ToDo extends React.Component {
   constructor(props) {
@@ -42,24 +41,30 @@ export default class ToDo extends React.Component {
   };
   handleClick = (event) => {
     if (event.target.name === "todo-add-button") {
-      this.setState(({ todos }) => ({
-        toDoInputValue: "",
-        todos: [...todos, {text: this.state.toDoInputValue}]
-      }));
+      this.setState((previousState) => {
+        return {
+          todos: [...previousState.todos, createNewToDo(this.state)],
+          toDoInputValue: "",
+        };
+      });
     }
   };
 
   render() {
-    let todos = this.state.todos 
+    let todos = this.state.todos;
     return (
       <div className={ToDoTailWindStylesList}>
-        <Input name="todo" handleChange={this.handleChange} />
+        <Input
+          name="todo"
+          value={this.state.toDoInputValue}
+          handleChange={this.handleChange}
+        />
         <Button
           name="todo-add-button"
           handleClick={this.handleClick}
           content="Add Todo"
         />
-        <List todos={todos}/>
+        <List todos={todos} />
       </div>
     );
   }
