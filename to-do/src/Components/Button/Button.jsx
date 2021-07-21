@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 let Classnames = require("classnames");
 
 export default function Button(props) {
@@ -10,5 +12,19 @@ export default function Button(props) {
     "px-4",
     "rounded",
   ]);
-  return <button className={ButtonClassNames}>{props.name}</button>;
+  return (
+    <button
+      name={props.name}
+      onClick={props.handleClick}
+      className={ButtonClassNames}
+    >
+      {props.content}
+    </button>
+  );
 }
+
+Button.propTypes = {
+  name: PropTypes.string,
+  handleClick: PropTypes.func,
+  content: PropTypes.string,
+};

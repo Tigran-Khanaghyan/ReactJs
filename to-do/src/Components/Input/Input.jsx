@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 let ClassNames = require("classnames");
 
 let InputClassNames = ClassNames([
@@ -12,8 +14,22 @@ let InputClassNames = ClassNames([
   "focus:shadow-outline",
 ]);
 
-export default function Input() {
+// let listClassNames = ClassNames([
+
+// ])
+
+export default function Input(props) {
   return (
-      <input className={InputClassNames} type="text" />
-  )
+    <input
+      type="text"
+      className={InputClassNames}
+      onChange={props.handleChange}
+      name={props.name}
+    />
+  );
 }
+
+Input.propTypes = {
+  handleChange: PropTypes.func,
+  name: PropTypes.string,
+};
