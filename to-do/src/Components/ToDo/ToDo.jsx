@@ -25,7 +25,6 @@ export default class ToDo extends React.Component {
 
     this.state = {
       toDoInputValue: "",
-      listInputValue: "",
       todos: [],
     };
   }
@@ -40,6 +39,12 @@ export default class ToDo extends React.Component {
   handleChange = (value) => {
     this.setState({ toDoInputValue: value });
   };
+  handleItemTextChange = (value, id) => {
+    this.setState(({todos}) => ({
+      todos: todos.map((todo) => {
+        return todo.id === id ? {...todo, text: value} : todo
+      })
+    }))}
   handleClick = (event) => {
     if (event.target.name === "todo-add-button") {
       this.setState((previousState) => {
@@ -68,6 +73,7 @@ export default class ToDo extends React.Component {
         />
         <List
           todos={todos}
+          onChange={this.handleItemTextChange}
           name="list-input"
         />
       </div>

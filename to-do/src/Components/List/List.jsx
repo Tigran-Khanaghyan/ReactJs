@@ -7,35 +7,34 @@ let ClassNames = require("classnames");
 let listClassNames = ClassNames(["mt-2"]);
 
 export default class List extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.state ={
-      todos: props.todos 
-    }
+    this.state = {};
   }
 
-  handleInputChange = (value) => {
-    this.setState({value: value})
-  }
+  // handleInputChange = (value) => {
+  //   this.setState({ value: value });
+  // };
 
-  
   render() {
-    let editedText = this.state.value
     return (
       <ul className={listClassNames}>
         {this.props.todos.map((item, index) => {
           return (
-            <li key={item.id}>{index + 1}
+            <li key={item.id}>
+              {index + 1}
               <ToDoInput
                 name={item.name}
-                value={(editedText ? editedText : item.text)}
+                value={item.text}
+                id={item.id}
                 environment="todo"
-                onChange={this.handleInputChange}
+                onChange={this.props.onChange}
               />
-              <Button content="Done" name="edit-todo" />
+
+              <Button content="Done" name="done-todo" />
               <Button content="Edit" name="edit-todo" />
-              <Button content="Delete" name="edit-todo" />
+              <Button content="Delete" name="delete-todo" />
             </li>
           );
         })}

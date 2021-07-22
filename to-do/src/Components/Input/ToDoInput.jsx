@@ -31,9 +31,10 @@ export default class ToDoInput extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event) {
-    this.props.onChange(event.target.value);
-  }
+  handleChange = (event) => {
+    // event.stopPropagation();
+    this.props.onChange(event.target.value, this.props.id);
+  };
 
   render() {
     return (
@@ -46,6 +47,7 @@ export default class ToDoInput extends React.Component {
         }
         onChange={this.handleChange}
         name={this.props.name}
+        onClick={this.props.onClick}
       />
     );
   }
