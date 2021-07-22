@@ -13,6 +13,7 @@ function generateRandomId() {
 
 let createNewToDo = (state) => {
   return {
+    isDone: false,
     text: state.toDoInputValue,
     name: "list-input",
     id: generateRandomId(),
@@ -54,6 +55,16 @@ export default class ToDo extends React.Component {
         };
       });
     }
+    if(event.target.name === "done-todo"){
+      console.log(event.target)
+      let target = event.target
+      this.setState(({todos}) => ({
+        todos: todos.map((todo) => {
+          return todo.id === target.id ? {...todo, isDone: true} : todo
+        })
+      }))
+
+    }
   };
 
   render() {
@@ -67,14 +78,16 @@ export default class ToDo extends React.Component {
           onChange={this.handleChange}
         />
         <Button
-          name="todo-add-button"
-          handleClick={this.handleClick}
+          buttonName="todo-add-button"
+          onClick={this.handleClick}
           content="Add Todo"
         />
         <List
           todos={todos}
           onChange={this.handleItemTextChange}
           name="list-input"
+          buttonName="done-todo"
+          onClick={this.handleClick}
         />
       </div>
     );

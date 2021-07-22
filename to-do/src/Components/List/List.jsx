@@ -30,9 +30,15 @@ export default class List extends React.Component {
                 id={item.id}
                 environment="todo"
                 onChange={this.props.onChange}
+                isDone={item.isDone}
               />
 
-              <Button content="Done" name="done-todo" />
+              <Button
+                id={item.id}
+                content="Done"
+                buttonName={this.props.buttonName}
+                onClick={this.props.onClick}
+              />
               <Button content="Edit" name="edit-todo" />
               <Button content="Delete" name="delete-todo" />
             </li>

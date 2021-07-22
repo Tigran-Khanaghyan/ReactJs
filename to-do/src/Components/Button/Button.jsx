@@ -14,9 +14,10 @@ export default function Button(props) {
   ]);
   return (
     <button
-      name={props.name}
-      onClick={props.handleClick}
+      name={props.buttonName}
+      onClick={props.onClick}
       className={ButtonClassNames}
+      id={props.id}
     >
       {props.content}
     </button>
@@ -24,7 +25,7 @@ export default function Button(props) {
 }
 
 Button.propTypes = {
-  name: PropTypes.string,
+  buttonName: PropTypes.string,
   handleClick: PropTypes.func,
   content: PropTypes.string,
 };
