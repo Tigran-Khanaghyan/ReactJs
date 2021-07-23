@@ -29,6 +29,8 @@ export default class ToDo extends React.Component {
       isAddButtonDisabled: false,
       toDoInputValue: "",
       todos: [],
+      filteredTodos: [],
+      showFiltered: false,
     };
   }
 
@@ -57,6 +59,7 @@ export default class ToDo extends React.Component {
       }
       this.setState((previousState) => {
         return {
+          showFiltered: false,
           todos: [...previousState.todos, createNewToDo(this.state)],
           toDoInputValue: "",
         };
@@ -65,6 +68,7 @@ export default class ToDo extends React.Component {
     if (event.target.name === "done-todo") {
       let target = event.target;
       this.setState(({ todos }) => ({
+        showFiltered: false,
         todos: todos.map((todo) => {
           return todo.id === target.id ? { ...todo, isDone: true } : todo;
         }),
@@ -73,6 +77,7 @@ export default class ToDo extends React.Component {
     if (event.target.name === "edit-todo") {
       let target = event.target;
       this.setState(({ todos }) => ({
+        showFiltered: false,
         todos: todos.map((todo) => {
           return todo.id === target.id && !todo.isDone
             ? { ...todo, isEdited: !todo.isEdited }
@@ -83,16 +88,40 @@ export default class ToDo extends React.Component {
     if (event.target.name === "delete-todo") {
       let target = event.target;
       this.setState(({ todos }) => ({
+        showFiltered: false,
         todos: todos.filter((todo) => {
           return todo.id !== target.id;
+        }),
+      }));
+    }
+    if (event.target.name === "show-all") {
+      this.setState({
+        showFiltered: true,
+        filteredTodos: this.state.todos,
+      });
+    }
+    if (event.target.name === "show-completed") {
+      this.setState(({ todos }) => ({
+        showFiltered: true,
+        filteredTodos: todos.filter((todo) => {
+          return todo.isDone;
+        }),
+      }));
+    }
+
+    if (event.target.name === "show-active") {
+      this.setState(({ todos }) => ({
+        showFiltered: true,
+        filteredTodos: todos.filter((todo) => {
+          return !todo.isDone;
         }),
       }));
     }
   };
 
   render() {
-    let todos = this.state.todos;
-    let { isAddButtonDisabled } = this.state;
+    let { todos, filteredTodos, isAddButtonDisabled, showFiltered } =
+      this.state;
     return (
       <div className={ToDoTailWindStylesList}>
         <ToDoInput
@@ -107,8 +136,27 @@ export default class ToDo extends React.Component {
           content="Add Todo"
           disabled={isAddButtonDisabled}
         />
+        <div>
+          <Button
+            content="All"
+            buttonName="show-all"
+            onClick={this.handleClick}
+          />
+          <Button
+            content="Completed"
+            buttonName="show-completed"
+            onClick={this.handleClick}
+          />
+          <Button
+            content="Active"
+            buttonName="show-active"
+            onClick={this.handleClick}
+          />
+        </div>
         <List
           todos={todos}
+          filteredTodos={filteredTodos}
+          showFiltered={showFiltered}
           onChange={this.handleItemTextChange}
           name="list-input"
           onClick={this.handleClick}

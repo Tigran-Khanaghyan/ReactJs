@@ -14,9 +14,12 @@ export default class List extends React.Component {
   }
 
   render() {
+    let key = this.props.showFiltered
+      ? this.props.filteredTodos
+      : this.props.todos;
     return (
       <ul className={listClassNames}>
-        {this.props.todos.map((item, index) => {
+        {key.map((item, index) => {
           return (
             <li key={item.id}>
               {index + 1}
