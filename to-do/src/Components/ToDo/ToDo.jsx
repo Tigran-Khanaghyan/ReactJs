@@ -81,7 +81,12 @@ export default class ToDo extends React.Component {
       }));
     }
     if (event.target.name === "delete-todo") {
-      console.log(1);
+      let target = event.target;
+      this.setState(({ todos }) => ({
+        todos: todos.filter((todo) => {
+          return todo.id !== target.id;
+        }),
+      }));
     }
   };
 

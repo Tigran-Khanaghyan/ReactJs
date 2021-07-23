@@ -43,9 +43,10 @@ export default class List extends React.Component {
                 onClick={this.props.onClick}
               />
               <Button
+                id={item.id}
                 content="Delete"
                 buttonName="delete-todo"
-                onCLick={this.props.onClick}
+                onClick={this.props.onClick}
               />
             </li>
           );
