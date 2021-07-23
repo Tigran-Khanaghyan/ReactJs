@@ -36,10 +36,13 @@ export default class ToDo extends React.Component {
 
   componentDidMount() {
     document.body.className = "bg-blue-200";
+    let previousState = localStorage.getItem("previousState");
+    let state = JSON.parse(previousState);
+    this.setState({ ...state });
   }
-  // componentDidUpdate() {
-  //   console.log(this.state.toDoInputValue);
-  // }
+  componentDidUpdate() {
+    localStorage.setItem("previousState", JSON.stringify(this.state));
+  }
 
   handleChange = (value) => {
     this.setState({ toDoInputValue: value, isAddButtonDisabled: false });
