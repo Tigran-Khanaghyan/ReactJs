@@ -13,10 +13,6 @@ export default class List extends React.Component {
     this.state = {};
   }
 
-  // handleInputChange = (value) => {
-  //   this.setState({ value: value });
-  // };
-
   render() {
     return (
       <ul className={listClassNames}>
@@ -27,6 +23,7 @@ export default class List extends React.Component {
               <ToDoInput
                 name={item.name}
                 value={item.text}
+                isEdited={!item.isEdited}
                 id={item.id}
                 environment="todo"
                 onChange={this.props.onChange}
@@ -36,11 +33,20 @@ export default class List extends React.Component {
               <Button
                 id={item.id}
                 content="Done"
-                buttonName={this.props.buttonName}
+                buttonName="done-todo"
                 onClick={this.props.onClick}
               />
-              <Button content="Edit" name="edit-todo" />
-              <Button content="Delete" name="delete-todo" />
+              <Button
+                id={item.id}
+                content={!item.isEdited ? "Edit" : "Save"}
+                buttonName="edit-todo"
+                onClick={this.props.onClick}
+              />
+              <Button
+                content="Delete"
+                buttonName="delete-todo"
+                onCLick={this.props.onClick}
+              />
             </li>
           );
         })}

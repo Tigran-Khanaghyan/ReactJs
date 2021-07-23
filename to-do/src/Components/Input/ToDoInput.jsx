@@ -14,7 +14,7 @@ let InputClassNames = ClassNames([
   "focus:outline-none",
   "focus:shadow-outline",
 ]);
- let todoClassNames = ClassNames([
+let todoClassNames = ClassNames([
   "border rounded",
   "w-2/5",
   "py-2",
@@ -23,7 +23,7 @@ let InputClassNames = ClassNames([
   "leading-tight",
   "focus:outline-none",
   "bg-blue-200",
-  "border-transparent",  
+  "border-transparent",
 ]);
 let lineThrough = ClassNames([
   "border rounded",
@@ -34,8 +34,8 @@ let lineThrough = ClassNames([
   "leading-tight",
   "focus:outline-none",
   "bg-blue-200",
-  "border-transparent", 
-  "line-through" 
+  "border-transparent",
+  "line-through",
 ]);
 
 export default class ToDoInput extends React.Component {
@@ -45,7 +45,6 @@ export default class ToDoInput extends React.Component {
   }
 
   handleChange = (event) => {
-    // event.stopPropagation();
     this.props.onChange(event.target.value, this.props.id);
   };
 
@@ -54,10 +53,14 @@ export default class ToDoInput extends React.Component {
       <input
         type="text"
         environment={this.props.environment}
+        disabled={this.props.isEdited}
         value={this.props.value}
         className={
-          this.props.environment === "input" ? InputClassNames :
-          this.props.isDone ? lineThrough : todoClassNames
+          this.props.environment === "input"
+            ? InputClassNames
+            : this.props.isDone
+            ? lineThrough
+            : todoClassNames
         }
         onChange={this.handleChange}
         name={this.props.name}
@@ -74,5 +77,4 @@ ToDoInput.propTypes = {
   value: PropTypes.string,
   class: PropTypes.string,
   environment: PropTypes.string,
- 
 };

@@ -13,6 +13,7 @@ function generateRandomId() {
 
 let createNewToDo = (state) => {
   return {
+    isEdited: false,
     isDone: false,
     text: state.toDoInputValue,
     name: "list-input",
@@ -41,12 +42,14 @@ export default class ToDo extends React.Component {
     this.setState({ toDoInputValue: value });
   };
   handleItemTextChange = (value, id) => {
-    this.setState(({todos}) => ({
+    this.setState(({ todos }) => ({
       todos: todos.map((todo) => {
-        return todo.id === id ? {...todo, text: value} : todo
-      })
-    }))}
+        return todo.id === id ? { ...todo, text: value } : todo;
+      }),
+    }));
+  };
   handleClick = (event) => {
+    console.log(event.target.name);
     if (event.target.name === "todo-add-button") {
       this.setState((previousState) => {
         return {
@@ -55,15 +58,26 @@ export default class ToDo extends React.Component {
         };
       });
     }
-    if(event.target.name === "done-todo"){
-      console.log(event.target)
-      let target = event.target
-      this.setState(({todos}) => ({
+    if (event.target.name === "done-todo") {
+      let target = event.target;
+      this.setState(({ todos }) => ({
         todos: todos.map((todo) => {
-          return todo.id === target.id ? {...todo, isDone: true} : todo
-        })
-      }))
-
+          return todo.id === target.id ? { ...todo, isDone: true } : todo;
+        }),
+      }));
+    }
+    if (event.target.name === "edit-todo") {
+      let target = event.target;
+      this.setState(({ todos }) => ({
+        todos: todos.map((todo) => {
+          return todo.id === target.id && !todo.isDone
+            ? { ...todo, isEdited: !todo.isEdited }
+            : todo;
+        }),
+      }));
+    }
+    if (event.target.name === "delete-todo") {
+      console.log(1);
     }
   };
 
@@ -86,7 +100,6 @@ export default class ToDo extends React.Component {
           todos={todos}
           onChange={this.handleItemTextChange}
           name="list-input"
-          buttonName="done-todo"
           onClick={this.handleClick}
         />
       </div>
