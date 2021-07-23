@@ -26,6 +26,7 @@ export default class ToDo extends React.Component {
     super(props);
 
     this.state = {
+      isAddButtonDisabled: false,
       toDoInputValue: "",
       todos: [],
     };
@@ -39,7 +40,7 @@ export default class ToDo extends React.Component {
   // }
 
   handleChange = (value) => {
-    this.setState({ toDoInputValue: value });
+    this.setState({ toDoInputValue: value, isAddButtonDisabled: false });
   };
   handleItemTextChange = (value, id) => {
     this.setState(({ todos }) => ({
@@ -49,8 +50,11 @@ export default class ToDo extends React.Component {
     }));
   };
   handleClick = (event) => {
-    console.log(event.target.name);
     if (event.target.name === "todo-add-button") {
+      if (!this.state.toDoInputValue.trim()) {
+        this.setState({ isAddButtonDisabled: true });
+        return;
+      }
       this.setState((previousState) => {
         return {
           todos: [...previousState.todos, createNewToDo(this.state)],
@@ -83,6 +87,7 @@ export default class ToDo extends React.Component {
 
   render() {
     let todos = this.state.todos;
+    let { isAddButtonDisabled } = this.state;
     return (
       <div className={ToDoTailWindStylesList}>
         <ToDoInput
@@ -95,6 +100,7 @@ export default class ToDo extends React.Component {
           buttonName="todo-add-button"
           onClick={this.handleClick}
           content="Add Todo"
+          disabled={isAddButtonDisabled}
         />
         <List
           todos={todos}
