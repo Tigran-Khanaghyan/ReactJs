@@ -7,6 +7,9 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import Link from "@material-ui/core/Link";
+import { MainPageText } from "../MainPageText/MainPageText";
+// import Login from "../Login/Login"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +69,8 @@ export default function MenuHeader() {
       >
         Create Post
       </Button>
+      
+      <MainPageText/>
     </div>
   );
 }
