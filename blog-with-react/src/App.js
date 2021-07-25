@@ -1,11 +1,11 @@
 import '@fontsource/roboto'
-import { AccessAlarm, ThreeDRotation } from '@material-ui/icons'
-import MenuHeader from './components/MenuHeader/MenuHeader'
+import { Main } from './components/Main/Main';
+
+
 
 function App() {
   return (
-   <MenuHeader/>
-    
+ <Main/>
   );
 }
 

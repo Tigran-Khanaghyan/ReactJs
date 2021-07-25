@@ -6,10 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
-import Link from "@material-ui/core/Link";
+// import Link from "@material-ui/core/Link";
 import { MainPageText } from "../MainPageText/MainPageText";
-// import Login from "../Login/Login"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,24 +43,22 @@ export default function MenuHeader() {
             aria-label="menu"
           ></IconButton>
           <Typography className={classes.title}>
-            <Link
-              className={classes.linkIcon}
-              href="#"
-              variant="h6"
-              color="inherit"
-            >
+            <Link to="/">
               <HomeWorkIcon />
               Home
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Link href="#" variant="h6" color="inherit">
+            <Link to="/posts" >
               Posts
             </Link>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Link to="/login">
+            <Button color="inherit">Login</Button>
+          </Link>
         </Toolbar>
       </AppBar>
+
       <Button
         className={classes.createButton}
         color="primary"
@@ -69,8 +66,6 @@ export default function MenuHeader() {
       >
         Create Post
       </Button>
-      
-      <MainPageText/>
     </div>
   );
 }
