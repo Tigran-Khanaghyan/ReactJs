@@ -6,11 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
-// import Link from "@material-ui/core/Link";
-import { MainPageText } from "../MainPageText/MainPageText";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -27,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
   createButton: {
     margin: 5,
   },
-}));
+});
 
-export default function MenuHeader() {
-  const classes = useStyles();
+ function MenuHeader(props) {
+  const {classes} = props
 
   return (
     <div className={classes.root}>
@@ -54,18 +53,23 @@ export default function MenuHeader() {
             </Link>
           </Typography>
           <Link to="/login">
-            <Button color="inherit">Login</Button>
+            <Button color="inherit">{props.logName}</Button>
           </Link>
         </Toolbar>
       </AppBar>
 
       <Button
+      
         className={classes.createButton}
         color="primary"
         variant="contained"
       >
+        <Link to="/protected" >
         Create Post
+        </Link>
       </Button>
     </div>
   );
 }
+
+export default withStyles(styles)(MenuHeader);
