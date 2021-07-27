@@ -7,6 +7,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import {Link} from 'react-router-dom'
+import setLocalStorageSItems from "../../helpers/setLocalStorageSItems";
+import { isCompositeComponentWithType } from "react-dom/test-utils";
 
 const styles = (theme) => ({
   paper: {
@@ -29,9 +32,20 @@ const styles = (theme) => ({
 });
 
 class Login extends React.Component {
- 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      password: "",
+    };
+  }
+
+
+
   render() {
     const { classes } = this.props;
+   
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -66,16 +80,19 @@ class Login extends React.Component {
             autoComplete="current-password"
             onChange={this.props.handlePassword}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={this.props.createUser}
-          >
-            Log in
-          </Button>
+          <Link to={{pathname: "/"}}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={this.props.createUser}
+              
+            >
+              Log in
+            </Button>
+          </Link>
         </div>
       </Container>
     );
