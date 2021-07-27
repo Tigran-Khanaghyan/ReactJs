@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
-// import Link from "@material-ui/core/Link";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function MainPageText() {
   return (

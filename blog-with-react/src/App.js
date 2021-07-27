@@ -1,11 +1,12 @@
-import '@fontsource/roboto'
-import { Main } from './components/Main/Main';
-
+import "@fontsource/roboto";
+import { Main } from "./components/Main/Main";
 
 
 function App() {
   return (
- <Main/>
+    
+      <Main />
+    
   );
 }
 

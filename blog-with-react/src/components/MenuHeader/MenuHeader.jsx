@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+
 
 const styles = (theme) => ({
   root: {
@@ -28,11 +28,11 @@ const styles = (theme) => ({
   },
 });
 
- function MenuHeader(props) {
-  const {classes} = props
+function MenuHeader(props) {
+  const { classes } = props;
 
   return (
-    <div className={classes.root}>
+    <>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -42,33 +42,30 @@ const styles = (theme) => ({
             aria-label="menu"
           ></IconButton>
           <Typography className={classes.title}>
-            <Link to="/">
+            <Link exact to="/">
               <HomeWorkIcon />
               Home
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Link to="/posts" >
+            <Link exact to="/posts">
               Posts
             </Link>
           </Typography>
-          <Link to="/login">
+          <Link exact to="/login">
             <Button color="inherit">{props.logName}</Button>
           </Link>
         </Toolbar>
       </AppBar>
 
       <Button
-      
         className={classes.createButton}
         color="primary"
         variant="contained"
       >
-        <Link to="/protected" >
-        Create Post
-        </Link>
+        <Link to="/posts">Create Post</Link>
       </Button>
-    </div>
+    </> 
   );
 }
 
