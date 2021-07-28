@@ -12,7 +12,7 @@ import CreatePost from "../createPost/CreatePost";
 import setLocalStorageItems from "../../helpers/setLocalStorageSItems";
 import { Posts } from "../posts/Posts";
 import addPosts from "../../helpers/addPostsIntoLocalStorage";
-import findUser from "../../helpers/findUniqueUser"
+import findUser from "../../helpers/findUniqueUser";
 
 let userId = null;
 export class Main extends React.Component {
@@ -24,6 +24,7 @@ export class Main extends React.Component {
       content: "",
       name: "",
       password: "",
+      currentUser: null,
       isLoggedIn: false,
     };
   }
@@ -40,15 +41,22 @@ export class Main extends React.Component {
 
   createUser = () => {
     userId = String(Date.now());
+    let newUser = null;
     let { name, password } = this.state;
-    let existingUser = findUser(name, password)
+    let existingUser = findUser(name, password);
     if (!existingUser && name.trim() && password.trim()) {
-      this.setState({ isLoggedIn: true });
-      setLocalStorageItems(userId, name, password);
+      newUser = setLocalStorageItems(userId, name, password);
+      this.setState({
+        currentUser: newUser,
+        isLoggedIn: true,
+      });
     }
-    if(existingUser && name.trim() && password.trim()){
-      userId = findUser(name, password)[1]
-      this.setState({ isLoggedIn: true });
+    if (existingUser && name.trim() && password.trim()) {
+      userId = findUser(name, password)[1];
+      this.setState({
+        currentUser: existingUser[0],
+        isLoggedIn: true,
+      });
     }
   };
 
@@ -77,7 +85,7 @@ export class Main extends React.Component {
   };
 
   render() {
-    let { isLoggedIn } = this.state;
+    let { isLoggedIn, currentUser } = this.state;
     return (
       <Router>
         <MenuHeader refLink={isLoggedIn ? "/createPost" : "/login"} />
@@ -94,7 +102,7 @@ export class Main extends React.Component {
             />
           </Route>
           <Route path="/posts">
-            <Posts />
+            <Posts currentUser={currentUser} />
           </Route>
           <Route path="/createPost">
             <CreatePost
