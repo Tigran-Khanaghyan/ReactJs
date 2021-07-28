@@ -10,6 +10,7 @@ import { MainPageText } from "../MainPageText/MainPageText";
 import Authentication from "../Authentication/Index";
 import CreatePost from "../createPost/CreatePost";
 import setLocalStorageSItems from "../../helpers/setLocalStorageSItems";
+import { Posts } from "../posts/Posts";
 export class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -40,11 +41,12 @@ export class Main extends React.Component {
   };
 
   render() {
+    let { isLoggedIn } = this.state;
     return (
       <Router>
-        <MenuHeader />
+        <MenuHeader refLink={isLoggedIn ? "/createPost" : "/login"} />
         <Switch>
-          <Route exact path="/">
+          <Route exact={true} path="/">
             <MainPageText />
           </Route>
 
@@ -55,6 +57,13 @@ export class Main extends React.Component {
               createUser={this.createUser}
             />
           </Route>
+          <Route path="/posts">
+            <Posts />
+          </Route>
+          <Route path="/createPost">
+            <CreatePost />
+          </Route>
+
           <Route
             to={{ pathname: "/posts" }}
             render={() =>

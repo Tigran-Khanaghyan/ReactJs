@@ -42,18 +42,18 @@ function MenuHeader(props) {
             aria-label="menu"
           ></IconButton>
           <Typography className={classes.title}>
-            <Link exact to="/">
+            <Link exact={true} to={{pathname: "/"}}>
               <HomeWorkIcon />
               Home
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Link exact to="/posts">
+            <Link exact={true} to={{pathname: "/posts"}}>
               Posts
             </Link>
           </Typography>
-          <Link exact to="/login">
-            <Button color="inherit">{props.logName}</Button>
+          <Link exact={true} to={{pathname: "/login"}}>
+            Log in
           </Link>
         </Toolbar>
       </AppBar>
@@ -63,7 +63,7 @@ function MenuHeader(props) {
         color="primary"
         variant="contained"
       >
-        <Link to="/posts">Create Post</Link>
+        <Link to={props.refLink}>Create Post</Link>
       </Button>
     </> 
   );

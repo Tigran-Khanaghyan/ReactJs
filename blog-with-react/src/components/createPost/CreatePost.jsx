@@ -2,15 +2,15 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-
+import {Link} from "react-router-dom"
 
 let styles = {
-    submit : {
-        color: "white"
-    }
-}
+  submit: {
+    color: "white",
+  },
+};
 
- class CreatePost extends React.Component {
+class CreatePost extends React.Component {
   render() {
     return (
       <div>
@@ -20,37 +20,37 @@ let styles = {
           required
           fullWidth
           id="text"
-          label="Name"
           name="text"
-          autoComplete="name"
+          autoComplete="title"
           autoFocus
           onChange={this.props.handleTitle}
         />
         <TextField
           variant="outlined"
           margin="normal"
-          required
           fullWidth
+          required
           name="password"
-          label="Password"
-          type="password"
+          type="text"
           id="password"
-          autoComplete="current-password"
+          autoComplete="Type your post text..."
           onChange={this.props.handleContent}
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={styles.submit}
-          onClick={this.props.createPost}
-        >
-          Log in
-        </Button>
+        <Link to={{pathname: "/posts"}}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={styles.submit}
+            onClick={this.props.createPost}
+          >
+            Create Post
+          </Button>
+        </Link>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(CreatePost)
+export default withStyles(styles)(CreatePost);
