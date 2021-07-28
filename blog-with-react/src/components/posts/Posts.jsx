@@ -1,8 +1,12 @@
-import React from "react"
-import DefaultText from "./DefaultText"
+import React from "react";
+import DefaultText from "./DefaultText";
+import ImgMediaCard from "./ImgMediaCard";
+
+
 
 export function Posts() {
-return (
-    <DefaultText/>
-)
+  return (
+    // <DefaultText />
+    <ImgMediaCard />
+  );
 }
