@@ -9,9 +9,10 @@ import {
 import { MainPageText } from "../MainPageText/MainPageText";
 import Authentication from "../Authentication/Index";
 import CreatePost from "../createPost/CreatePost";
-import setLocalStorageSItems from "../../helpers/setLocalStorageSItems";
+import setLocalStorageItems from "../../helpers/setLocalStorageSItems";
 import { Posts } from "../posts/Posts";
 import addPosts from "../../helpers/addPostsIntoLocalStorage";
+import findUser from "../../helpers/findUniqueUser"
 
 let userId = null;
 export class Main extends React.Component {
@@ -40,9 +41,14 @@ export class Main extends React.Component {
   createUser = () => {
     userId = String(Date.now());
     let { name, password } = this.state;
-    if (name.trim() && password.trim()) {
+    let existingUser = findUser(name, password)
+    if (!existingUser && name.trim() && password.trim()) {
       this.setState({ isLoggedIn: true });
-      setLocalStorageSItems(userId, name, password);
+      setLocalStorageItems(userId, name, password);
+    }
+    if(existingUser && name.trim() && password.trim()){
+      userId = findUser(name, password)[1]
+      this.setState({ isLoggedIn: true });
     }
   };
 
@@ -60,7 +66,6 @@ export class Main extends React.Component {
     const { title, content } = this.state;
 
     let userInfo = localStorage.getItem(userId);
-    console.log(userInfo);
     let user = JSON.parse(userInfo);
 
     if (title.trim() && content.trim()) {
