@@ -1,6 +1,5 @@
-export default function setLocalStorageSItems(name, password){
-    let id = Math.random()
-    let user = {name, password}
+export default function setLocalStorageSItems(id, name, password){
+    let user = {name, password, posts: []}
     user = JSON.stringify(user)
     localStorage.setItem(id, user)
 } 

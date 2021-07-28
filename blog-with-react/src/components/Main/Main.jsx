@@ -11,11 +11,16 @@ import Authentication from "../Authentication/Index";
 import CreatePost from "../createPost/CreatePost";
 import setLocalStorageSItems from "../../helpers/setLocalStorageSItems";
 import { Posts } from "../posts/Posts";
+import addPosts from "../../helpers/addPostsIntoLocalStorage";
+
+let userId = null;
 export class Main extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      title: "",
+      content: "",
       name: "",
       password: "",
       isLoggedIn: false,
@@ -33,11 +38,37 @@ export class Main extends React.Component {
   };
 
   createUser = () => {
+    userId = String(Date.now());
     let { name, password } = this.state;
     if (name.trim() && password.trim()) {
       this.setState({ isLoggedIn: true });
-      setLocalStorageSItems(name, password);
+      setLocalStorageSItems(userId, name, password);
     }
+  };
+
+  handleTitle = (event) => {
+    let title = event.target.value;
+    this.setState({ title });
+  };
+
+  handleContent = (event) => {
+    let content = event.target.value;
+    this.setState({ content });
+  };
+
+  createPost = () => {
+    const { title, content } = this.state;
+
+    let userInfo = localStorage.getItem(userId);
+    console.log(userInfo);
+    let user = JSON.parse(userInfo);
+
+    if (title.trim() && content.trim()) {
+      let post = { title, content };
+      user.posts.push(post);
+      addPosts(userId, user);
+    }
+    return;
   };
 
   render() {
@@ -46,7 +77,7 @@ export class Main extends React.Component {
       <Router>
         <MenuHeader refLink={isLoggedIn ? "/createPost" : "/login"} />
         <Switch>
-          <Route exact={true} path="/">
+          <Route exact path="/">
             <MainPageText />
           </Route>
 
@@ -54,14 +85,18 @@ export class Main extends React.Component {
             <Authentication
               handleName={this.handleName}
               handlePassword={this.handlePassword}
-              createUser={this.createUser}
+              createUser={(userId) => this.createUser(userId)}
             />
           </Route>
           <Route path="/posts">
             <Posts />
           </Route>
           <Route path="/createPost">
-            <CreatePost />
+            <CreatePost
+              handleTitle={this.handleTitle}
+              handleContent={this.handleContent}
+              createPost={(userId) => this.createPost(userId)}
+            />
           </Route>
 
           <Route
