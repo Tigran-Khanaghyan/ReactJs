@@ -24,6 +24,7 @@ export class Main extends React.Component {
       content: "",
       name: "",
       password: "",
+      isEdited: true,
       currentUser: null,
       isLoggedIn: false,
     };
@@ -77,15 +78,20 @@ export class Main extends React.Component {
     let user = JSON.parse(userInfo);
 
     if (title.trim() && content.trim()) {
-      let post = { title, content };
+      let post = { title, content};
       user.posts.push(post);
+      this.setState({ currentUser: user });
       addPosts(userId, user);
     }
     return;
   };
 
+  handlePostEdit = (event) => {
+    this.setState({ isEdited: false });
+  };
+
   render() {
-    let { isLoggedIn, currentUser } = this.state;
+    let { isLoggedIn, currentUser, isEdited } = this.state;
     return (
       <Router>
         <MenuHeader refLink={isLoggedIn ? "/createPost" : "/login"} />
@@ -102,7 +108,13 @@ export class Main extends React.Component {
             />
           </Route>
           <Route path="/posts">
-            <Posts currentUser={currentUser} />
+            <Posts
+              currentUser={currentUser}
+              isEdited={isEdited}
+              edit={this.handlePostEdit}
+              handleContent={this.handleContent}
+              handleTitle={this.handleTitle}
+            />
           </Route>
           <Route path="/createPost">
             <CreatePost

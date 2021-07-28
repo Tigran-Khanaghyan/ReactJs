@@ -4,26 +4,35 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import { TextField } from "@material-ui/core";
 
 export default function ImgMediaCard(props) {
   return (
     <Card>
       <CardActionArea>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.postContent}
-          </Typography>
+          <TextField
+            margin="normal"
+            type="text"
+            disabled={props.isEdited}
+            value={props.title}
+            onChange={props.handleTitle}
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            type="text"
+            disabled={props.isEdited}
+            value={props.postContent}
+            onChange={props.handleContent}
+          />
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
           Share
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={props.edit}>
           Edit
         </Button>
       </CardActions>

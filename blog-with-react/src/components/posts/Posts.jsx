@@ -3,18 +3,28 @@ import DefaultText from "./DefaultText";
 import ImgMediaCard from "./ImgMediaCard";
 
 export function Posts(props) {
-  let { currentUser } = props;
-  let posts = null
+  let { currentUser, edit, isEdited, handleContent, handleTitle } = props;
+  let posts = null;
   if (currentUser) {
-     posts = currentUser.posts;
-  }else{
-    return <DefaultText />
+    posts = currentUser.posts;
+  } else {
+    return <DefaultText />;
   }
 
   return (
     <>
       {posts.map((post) => {
-        return <ImgMediaCard title={post.title} postContent={post.content} />;
+        return (
+          <ImgMediaCard
+            key={post.title + post.content}
+            title={post.title}
+            postContent={post.content}
+            edit={edit}
+            isEdited={isEdited}
+            handleContent={handleContent}
+            handleTitle={handleTitle}
+          />
+        );
       })}
     </>
   );
