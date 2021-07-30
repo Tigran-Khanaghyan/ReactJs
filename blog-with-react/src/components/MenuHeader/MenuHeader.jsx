@@ -48,7 +48,7 @@ function MenuHeader(props) {
             </Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            <Link exact={true} to={{pathname: "/posts"}}>
+            <Link exact={true} to={{pathname: "/posts/:id"}}>
               Posts
             </Link>
           </Typography>

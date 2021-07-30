@@ -13,8 +13,11 @@ import setLocalStorageItems from "../../helpers/setLocalStorageSItems";
 import { Posts } from "../posts/Posts";
 import addPosts from "../../helpers/addPostsIntoLocalStorage";
 import findUser from "../../helpers/findUniqueUser";
+import ImgMediaCard from "../posts/ImgMediaCard";
+import SinglePost from "../SinglePost/SinglePost";
 
 let userId = null;
+let postId = 0;
 export class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +28,7 @@ export class Main extends React.Component {
       name: "",
       password: "",
       isEdited: true,
+      isPostClicked: false,
       currentUser: null,
       isLoggedIn: false,
     };
@@ -43,6 +47,7 @@ export class Main extends React.Component {
   createUser = () => {
     userId = String(Date.now());
     let newUser = null;
+    postId = 0;
     let { name, password } = this.state;
     let existingUser = findUser(name, password);
     if (!existingUser && name.trim() && password.trim()) {
@@ -72,13 +77,12 @@ export class Main extends React.Component {
   };
 
   createPost = () => {
-    const { title, content } = this.state;
-
+    const { title, content} = this.state;
+    
     let userInfo = localStorage.getItem(userId);
     let user = JSON.parse(userInfo);
-
     if (title.trim() && content.trim()) {
-      let post = { title, content};
+      let post = { title, content, postId };
       user.posts.push(post);
       this.setState({ currentUser: user });
       addPosts(userId, user);
@@ -90,8 +94,13 @@ export class Main extends React.Component {
     this.setState({ isEdited: false });
   };
 
+  handleLearnMore = (event) => {
+    console.log(event.target);
+  };
+
   render() {
     let { isLoggedIn, currentUser, isEdited } = this.state;
+
     return (
       <Router>
         <MenuHeader refLink={isLoggedIn ? "/createPost" : "/login"} />
@@ -111,9 +120,10 @@ export class Main extends React.Component {
             <Posts
               currentUser={currentUser}
               isEdited={isEdited}
-              edit={this.handlePostEdit}
               handleContent={this.handleContent}
               handleTitle={this.handleTitle}
+              handleLearnMore={this.handleLearnMore}
+              postId={postId}
             />
           </Route>
           <Route path="/createPost">
