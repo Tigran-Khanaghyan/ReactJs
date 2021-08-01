@@ -13,7 +13,6 @@ import setLocalStorageItems from "../../helpers/setLocalStorageSItems";
 import { Posts } from "../posts/Posts";
 import addPosts from "../../helpers/addPostsIntoLocalStorage";
 import findUser from "../../helpers/findUniqueUser";
-import ImgMediaCard from "../posts/ImgMediaCard";
 import SinglePost from "../SinglePost/SinglePost";
 
 let userId = null;
@@ -77,11 +76,17 @@ export class Main extends React.Component {
   };
 
   createPost = () => {
-    const { title, content} = this.state;
-    
+    const { title, content } = this.state;
+
     let userInfo = localStorage.getItem(userId);
     let user = JSON.parse(userInfo);
     if (title.trim() && content.trim()) {
+      let posts = this.state.currentUser.posts;
+      if (posts[posts.length - 1]) {
+        postId = posts[posts.length - 1].postId + 1;
+      } else {
+        postId = 1;
+      }
       let post = { title, content, postId };
       user.posts.push(post);
       this.setState({ currentUser: user });
@@ -92,10 +97,6 @@ export class Main extends React.Component {
 
   handlePostEdit = (event) => {
     this.setState({ isEdited: false });
-  };
-
-  handleLearnMore = (event) => {
-    console.log(event.target);
   };
 
   render() {
@@ -116,7 +117,7 @@ export class Main extends React.Component {
               createUser={(userId) => this.createUser(userId)}
             />
           </Route>
-          <Route path="/posts">
+          <Route exact path="/posts">
             <Posts
               currentUser={currentUser}
               isEdited={isEdited}
@@ -133,9 +134,25 @@ export class Main extends React.Component {
               createPost={(userId) => this.createPost(userId)}
             />
           </Route>
-
           <Route
-            to={{ pathname: "/posts" }}
+            exact
+            path="/posts/:postId"
+            render={({ match }) => {
+              let post = currentUser.posts.filter((item) => {
+                return Number(item.postId) === Number(match.url.slice(-1));
+              });
+
+              return (
+                <SinglePost
+                  postContent={post[0].content}
+                  title={post[0].title}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/posts"
             render={() =>
               this.state.isLoggedIn ? <CreatePost /> : <Redirect to="/login" />
             }

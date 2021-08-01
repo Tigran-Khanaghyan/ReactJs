@@ -1,7 +1,7 @@
 import React from "react";
 import DefaultText from "./DefaultText";
 import ImgMediaCard from "./ImgMediaCard";
-import { Route } from "react-router-dom";
+
 
 export function Posts(props) {
   
@@ -10,8 +10,7 @@ export function Posts(props) {
     isEdited,
     handleContent,
     handleTitle,
-    handleLearnMore,
-    postId,
+    
   } = props;
   let posts = null;
   if (currentUser) {
@@ -23,7 +22,6 @@ export function Posts(props) {
   return (
     <>
       {posts.map((post) => {
-        postId = postId + 1;
         return (
           <>
             <ImgMediaCard
@@ -33,8 +31,7 @@ export function Posts(props) {
               isEdited={isEdited}
               handleContent={handleContent}
               handleTitle={handleTitle}
-              handleLearnMore={handleLearnMore}
-              postId={postId}
+              postId={post.postId}
               posts={posts}
             />
           </>
