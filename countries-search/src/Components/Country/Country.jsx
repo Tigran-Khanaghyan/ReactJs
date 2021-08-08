@@ -2,6 +2,7 @@ import React from "react";
 import "./Country.css";
 
 export default function Country({ countries }) {
+  
   return (
     <div className='countries'>
       {countries.map((country) => {
