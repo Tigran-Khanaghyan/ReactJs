@@ -1,6 +1,6 @@
-import "./Card.css";
+import "./Weather.css";
 
-export function Card({ weekDey, icon, temp }) {
+export function Weather({ weekDey, icon, temp }) {
   return (
     <div className="wrapper">
       <h3>{weekDey}</h3>

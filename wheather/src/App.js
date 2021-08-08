@@ -1,10 +1,10 @@
 import weatherPredictions from "./data/weatherInfo";
-import { Card } from "./components/Card/Card";
+import { Weather } from "./components/Weather/Weather";
 
 function App() {
   return weatherPredictions.map((item, index) => {
     return (
-      <Card
+      <Weather
         key={index}
         weekDey={item.weekDey}
         icon={item.icon()}
