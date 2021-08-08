@@ -54,72 +54,69 @@ export default class ToDo extends React.Component {
       }),
     }));
   };
-  handleClick = (event) => {
-    if (event.target.name === "todo-add-button") {
-      if (!this.state.toDoInputValue.trim()) {
-        this.setState({ isAddButtonDisabled: true });
-        return;
-      }
-      this.setState((previousState) => {
-        return {
-          showFiltered: false,
-          todos: [...previousState.todos, createNewToDo(this.state)],
-          toDoInputValue: "",
-        };
-      });
+  handleClickAdd = () => {
+    if (!this.state.toDoInputValue.trim()) {
+      this.setState({ isAddButtonDisabled: true });
+      return;
     }
-    if (event.target.name === "done-todo") {
-      let target = event.target;
-      this.setState(({ todos }) => ({
+    this.setState((previousState) => {
+      return {
         showFiltered: false,
-        todos: todos.map((todo) => {
-          return todo.id === target.id ? { ...todo, isDone: true } : todo;
-        }),
-      }));
-    }
-    if (event.target.name === "edit-todo") {
-      let target = event.target;
-      this.setState(({ todos }) => ({
-        showFiltered: false,
-        todos: todos.map((todo) => {
-          return todo.id === target.id && !todo.isDone
-            ? { ...todo, isEdited: !todo.isEdited }
-            : todo;
-        }),
-      }));
-    }
-    if (event.target.name === "delete-todo") {
-      let target = event.target;
-      this.setState(({ todos }) => ({
-        showFiltered: false,
-        todos: todos.filter((todo) => {
-          return todo.id !== target.id;
-        }),
-      }));
-    }
-    if (event.target.name === "show-all") {
-      this.setState({
-        showFiltered: true,
-        filteredTodos: this.state.todos,
-      });
-    }
-    if (event.target.name === "show-completed") {
-      this.setState(({ todos }) => ({
-        showFiltered: true,
-        filteredTodos: todos.filter((todo) => {
-          return todo.isDone;
-        }),
-      }));
-    }
-
-    if (event.target.name === "show-active") {
-      this.setState(({ todos }) => ({
-        showFiltered: true,
-        filteredTodos: todos.filter((todo) => {
-          return !todo.isDone;
-        }),
-      }));
-    }
+        todos: [...previousState.todos, createNewToDo(this.state)],
+        toDoInputValue: "",
+      };
+    });
+  };
+  handleClickDone = (event) => {
+    let target = event.target;
+    this.setState(({ todos }) => ({
+      showFiltered: false,
+      todos: todos.map((todo) => {
+        return todo.id === target.id ? { ...todo, isDone: true } : todo;
+      }),
+    }));
+  };
+  handleClickEdit = (event) => {
+    let target = event.target;
+    this.setState(({ todos }) => ({
+      showFiltered: false,
+      todos: todos.map((todo) => {
+        return todo.id === target.id && !todo.isDone
+          ? { ...todo, isEdited: !todo.isEdited }
+          : todo;
+      }),
+    }));
+  };
+  handleClickDelete = (event) => {
+    let target = event.target;
+    this.setState(({ todos }) => ({
+      showFiltered: false,
+      todos: todos.filter((todo) => {
+        return todo.id !== target.id;
+      }),
+    }));
+  };
+  handleClickShowAll = () => {
+    this.setState({
+      showFiltered: true,
+      filteredTodos: this.state.todos,
+    });
+  };
+  handleClickShowCompleted = () => {
+    this.setState(({ todos }) => ({
+      showFiltered: true,
+      filteredTodos: todos.filter((todo) => {
+        return todo.isDone;
+      }),
+    }));
+  };
+  handleClickShowActive = () => {
+    this.setState(({ todos }) => ({
+      showFiltered: true,
+      filteredTodos: todos.filter((todo) => {
+        return !todo.isDone;
+      }),
+    }));
   };
 
   render() {
@@ -134,26 +131,16 @@ export default class ToDo extends React.Component {
           onChange={this.handleChange}
         />
         <Button
-          buttonName="todo-add-button"
-          onClick={this.handleClick}
+          onClick={this.handleClickAdd}
           content="Add Todo"
           disabled={isAddButtonDisabled}
         />
         <div>
-          <Button
-            content="All"
-            buttonName="show-all"
-            onClick={this.handleClick}
-          />
-          <Button
-            content="Completed"
-            buttonName="show-completed"
-            onClick={this.handleClick}
-          />
+          <Button content="All" onClick={this.handleClickShowAll} />
+          <Button content="Completed" onClick={this.handleClickShowCompleted} />
           <Button
             content="Active"
-            buttonName="show-active"
-            onClick={this.handleClick}
+            onClick={this.handleClickShowActive}
           />
         </div>
         <List
@@ -162,7 +149,9 @@ export default class ToDo extends React.Component {
           showFiltered={showFiltered}
           onChange={this.handleItemTextChange}
           name="list-input"
-          onClick={this.handleClick}
+          handleClickDone={this.handleClickDone}
+          handleClickEdit={this.handleClickEdit}
+          handleClickDelete={this.handleClickDelete}
         />
       </div>
     );

@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
+import classNames from 'classnames/bind';
 
-let Classnames = require("classnames");
+
 
 export default function Button(props) {
-  let ButtonClassNames = Classnames([
+  let buttonClassNames = classNames([
     "bg-blue-500",
     "hover:bg-blue-700",
     "text-white",
@@ -12,15 +13,16 @@ export default function Button(props) {
     "px-4",
     "rounded",
   ]);
+  let {buttonName, onClick, id, disabled, content} = props
   return (
     <button
-      name={props.buttonName}
-      onClick={props.onClick}
-      className={ButtonClassNames}
-      id={props.id}
-      disabled={props.disabled}
+      name={buttonName}
+      onClick={onClick}
+      className={buttonClassNames}
+      id={id}
+      disabled={disabled}
     >
-      {props.content}
+      {content}
     </button>
   );
 }

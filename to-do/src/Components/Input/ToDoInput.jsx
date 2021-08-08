@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
+import classNames from 'classnames/bind';
 
-let ClassNames = require("classnames");
 
-let InputClassNames = ClassNames([
+let inputClassNames = classNames([
   "shadow",
   "border rounded",
   "w-2/5",
@@ -14,7 +14,7 @@ let InputClassNames = ClassNames([
   "focus:outline-none",
   "focus:shadow-outline",
 ]);
-let todoClassNames = ClassNames([
+let todoClassNames = classNames([
   "border rounded",
   "w-2/5",
   "py-2",
@@ -25,7 +25,7 @@ let todoClassNames = ClassNames([
   "bg-blue-200",
   "border-transparent",
 ]);
-let lineThrough = ClassNames([
+let lineThrough = classNames([
   "border rounded",
   "w-2/5",
   "py-2",
@@ -38,37 +38,30 @@ let lineThrough = ClassNames([
   "line-through",
 ]);
 
-export default class ToDoInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange = (event) => {
-    this.props.onChange(event.target.value, this.props.id);
+export default function ToDoInput(props) {
+ let  handleChange = (event) => {
+    props.onChange(event.target.value, props.id);
   };
 
-  render() {
-    return (
-      <input
-        type="text"
-        environment={this.props.environment}
-        disabled={this.props.isEdited}
-        value={this.props.value}
-        className={
-          this.props.environment === "input"
-            ? InputClassNames
-            : this.props.isDone
-            ? lineThrough
-            : todoClassNames
-        }
-        onChange={this.handleChange}
-        name={this.props.name}
-        onClick={this.props.onClick}
-        // isEdited={this.props.isEdited}
-      />
-    );
-  }
+  return (
+    <input
+      type="text"
+      environment={props.environment}
+      disabled={props.isEdited}
+      value={props.value}
+      className={
+        props.environment === "input"
+          ? inputClassNames
+          : props.isDone
+          ? lineThrough
+          : todoClassNames
+      }
+      onChange={handleChange}
+      name={props.name}
+      onClick={props.onClick}
+      // isEdited={props.isEdited}
+    />
+  );
 }
 
 ToDoInput.propTypes = {
